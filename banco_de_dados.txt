@@ -1,0 +1,52 @@
+create database museuvirtual;
+use museuvirtual;
+create table funcao(
+	id int auto_increment not null,
+	descricao varchar(200) not null,
+	primary key(id)
+);
+create table usuario (
+	id int auto_increment not null,
+	nome varchar(255) not null,
+	email varchar(255) not null,
+	senha varchar(255) not null,
+	funcao int not null,
+	primary key(id),
+	foreign key(funcao) references funcao(id)
+);
+
+create table coletanea(
+	id int auto_increment not null,
+	titulo varchar(200) not null,
+	descricao longtext not null,
+	primary key(id)
+);
+
+
+create table objeto(
+	id int auto_increment not null,
+	descricao varchar(200) not null,
+	primary key(id)
+);
+
+
+create table peca(
+	id int auto_increment not null,
+	registro varchar(200) not null,
+	data_criacao varchar(200) not null,
+	titulo varchar(200) not null,
+	descricao longtext,
+	objeto int not null,
+	coletanea int not null,
+	primary key(id),
+	foreign key(objeto) references objeto(id),
+	foreign key(coletanea) references coletanea(id)
+);
+
+create table arquivo(
+	id int auto_increment not null,
+	caminho varchar(200) not  null,
+	peca int not null,
+	primary key(id),
+	foreign key(peca) references peca(id)
+);
