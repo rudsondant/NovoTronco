@@ -1,0 +1,74 @@
+create database museuvirtual;
+use museuvirtual;
+
+create table usuario (
+	id int auto_increment not null,
+	nome varchar(255) not null,
+	email varchar(255) not null,
+	senha varchar(255) not null,
+	primary key(id)
+);
+
+create table coletanea(
+	id int auto_increment not null,
+	titulo varchar(200) not null,
+	descricao longtext not null,
+	primary key(id)
+);
+
+
+create table objeto(
+	id int auto_increment not null,
+	descricao varchar(200) not null,
+	primary key(id)
+);
+
+
+create table peca(
+	id int auto_increment not null,
+	registro varchar(200) not null,
+	data_criacao varchar(200) not null,
+	titulo varchar(200) not null,
+	autor varchar(200),
+	descricao longtext,
+	link longtext,
+	objeto int not null,
+	coletanea int not null,
+	usuario int not null,
+	primary key(id),
+	foreign key(objeto) references objeto(id),
+	foreign key(coletanea) references coletanea(id),
+	foreign key(usuario) references usuario(id)
+);
+
+create table arquivo(
+	id int auto_increment not null,
+	caminho varchar(200) not  null,
+	peca int not null,
+	primary key(id),
+	foreign key(peca) references peca(id)
+);
+
+create table noticia(
+	id int auto_increment not null,
+	titulo varchar(200) not null,
+	descricao longtext not null,
+	data_publicacao varchar(200),
+	primary key(id)
+);
+
+create table imagem_noticia(
+	id int auto_increment not null,
+	caminho varchar(200) not  null,
+	noticia int not null,
+	primary key(id),
+	foreign key(noticia) references noticia(id)
+);
+
+
+insert into objeto(descricao) values ('Arquivo');
+insert into objeto(descricao) values ('Video');
+insert into objeto(descricao) values ('Foto');
+insert into objeto(descricao) values ('Audio');
+
+
